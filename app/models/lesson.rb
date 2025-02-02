@@ -1,6 +1,10 @@
 class Lesson < ApplicationRecord
-    belongs_to :tutor
-  
-    validates :lesson_date, presence: true
-    validates :tutor_id, presence: true
+  def change
+    create_table :lessons do |t|
+      t.references :tutor, null: false, foreign_key: { to_table: :tutors, on_delete: :cascade }
+      t.date :lesson_date, null: false 
+      
+      t.timestamps
+    end
+  end
   end

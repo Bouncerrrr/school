@@ -1,0 +1,22 @@
+<h1><%= @tutor.name %> <%= @tutor.surname %></h1>
+<p>Specialization: <%= @tutor.tutor_specialization %></p>
+<p>Hourly Price: $<%= @tutor.hourly_price %></p>
+
+<h2>Lessons</h2>
+<% if @lessons.any? %>
+  <ul>
+    <% @lessons.each do |lesson| %>
+      <li>Lesson on <%= lesson.lesson_date.strftime("%B %d, %Y") %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No lessons scheduled.</p>
+<% end %>
+
+<!-- Edit Button -->
+<%= link_to 'Edit Tutor', edit_tutor_path(@tutor), class: "button" %>
+
+<!-- Delete Button -->
+<%= link_to "Delete", tutor_path, data: {turbo_method: 'delete', turbo_confirm: "Are you sure?" } %>
+<!-- Back Button -->
+<%= link_to 'Back to Tutors List', tutors_path, class: "button" %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_01_230351) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_02_193526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,7 +29,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_01_230351) do
     t.integer "hourly_price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name", "surname", "tutor_specialization"], name: "unique_tutor_subject_index", unique: true
   end
 
-  add_foreign_key "lessons", "tutors"
+  add_foreign_key "lessons", "tutors", on_delete: :cascade
 end
