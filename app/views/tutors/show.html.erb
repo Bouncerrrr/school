@@ -17,8 +17,10 @@
   <p>No lessons scheduled.</p>
 <% end %>
 
-<!-- Add Lesson Button -->
-<%= link_to "Add Lesson", new_tutor_lesson_path(@tutor), class: "button" %>
+<!-- Add Lesson Button (Only show if @tutor is persisted in the database) -->
+<% if @tutor.persisted? %>
+  <%= link_to "Add Lesson", new_tutor_lesson_path(@tutor), class: "button" %>
+<% end %>
 
 <!-- Edit Button -->
 <%= link_to 'Edit Tutor', edit_tutor_path(@tutor), class: "button" %>
