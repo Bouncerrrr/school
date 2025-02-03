@@ -6,12 +6,19 @@
 <% if @lessons.any? %>
   <ul>
     <% @lessons.each do |lesson| %>
-      <li>Lesson on <%= lesson.lesson_date.strftime("%B %d, %Y") %></li>
+      <li>
+        Lesson on <%= lesson.lesson_date.strftime("%B %d, %Y") %>
+        <%= link_to "Edit", edit_tutor_lesson_path(@tutor, lesson), class: "button" %>
+        <%= link_to "Delete", tutor_lesson_path(@tutor, lesson), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "button delete-button" %>
+      </li>
     <% end %>
   </ul>
 <% else %>
   <p>No lessons scheduled.</p>
 <% end %>
+
+<!-- Add Lesson Button -->
+<%= link_to "Add Lesson", new_tutor_lesson_path(@tutor), class: "button" %>
 
 <!-- Edit Button -->
 <%= link_to 'Edit Tutor', edit_tutor_path(@tutor), class: "button" %>
@@ -20,3 +27,4 @@
 <%= link_to "Delete", tutor_path, data: {turbo_method: 'delete', turbo_confirm: "Are you sure?" } %>
 <!-- Back Button -->
 <%= link_to 'Back to Tutors List', tutors_path, class: "button" %>
+

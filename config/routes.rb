@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root "tutors#index"
 
   resources :tutors do
-    resources :lessons, except: [:show]
+    resources :lessons, except: [:new, :create, :edit, :update, :destroy]
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

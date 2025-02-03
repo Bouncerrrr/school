@@ -1,5 +1,27 @@
 <h1>All Tutors</h1>
 
+<!-- Search Form -->
+<%= form_with url: tutors_path, method: :get, local: true do %>
+  <div>
+    <%= label_tag :query, "Search by Name or Surname (Starting with):" %>
+    <%= text_field_tag :query, params[:query], placeholder: "Enter name..." %>
+  </div>
+
+  <div>
+    <%= label_tag :specialization, "Filter by Specialization:" %>
+    <%= select_tag :specialization, options_for_select(["All"] + @specializations, params[:specialization]) %>
+  </div>
+
+  <div>
+    <%= label_tag :date, "Find Tutors Available On:" %>
+    <%= date_field_tag :date, params[:date] %>
+  </div>
+
+  <div>
+    <%= submit_tag "Search" %>
+  </div>
+<% end %>
+
 <% if @tutors.any? %>
   <table>
     <thead>
