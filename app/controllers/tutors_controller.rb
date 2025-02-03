@@ -1,32 +1,12 @@
 class TutorsController < ApplicationController
+  include TutorsFilterable
+
   before_action :set_tutor, only: [:show, :edit, :update, :destroy]
-  
-  def index
-    @specializations = Tutor.select(:tutor_specialization).distinct.pluck(:tutor_specialization)
-  
-    @tutors = Tutor.left_joins(:lessons)
-                   .group(:id)
-                   .order('COUNT(lessons.id) DESC')
-  
-    if params[:query].present?
-      @tutors = @tutors.where("name ILIKE :prefix OR surname ILIKE :prefix", prefix: "#{params[:query]}%")
-    end
-  
-    if params[:specialization].present? && params[:specialization] != "All"
-      @tutors = @tutors.where(tutor_specialization: params[:specialization])
-    end
-  
-    if params[:date].present?
-      selected_date = Date.parse(params[:date]) rescue nil
-      if selected_date
-        @tutors = @tutors.where.not(id: Lesson.where(lesson_date: selected_date).select(:tutor_id))
-      end
-    end
-  end
-  
+
+  def index; end
+
   def show
-    @tutor = Tutor.find(params[:id])
-    @lessons = @tutor.lessons.order(lesson_date: :asc)
+    load_tutor_with_lessons
   end
 
   def new
@@ -35,18 +15,14 @@ class TutorsController < ApplicationController
 
   def create
     @tutor = Tutor.new(tutor_params)
-
     if @tutor.save
       redirect_to @tutor, notice: 'Tutor was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
-
   end
 
-  def edit
-    @tutor
-  end
+  def edit; end
 
   def update
     if @tutor.update(tutor_params)
@@ -69,5 +45,10 @@ class TutorsController < ApplicationController
 
   def tutor_params
     params.require(:tutor).permit(:name, :surname, :tutor_specialization, :hourly_price)
+  end
+
+  def load_tutor_with_lessons
+    @tutor = Tutor.find(params[:id])
+    @lessons = @tutor.lessons.order(lesson_date: :asc)
   end
 end
