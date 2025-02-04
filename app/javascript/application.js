@@ -3,10 +3,11 @@ import "@hotwired/turbo-rails";
 import "./controllers";
 import * as bootstrap from "bootstrap";
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("turbo:load", function() {
     document.querySelectorAll(".clickable-row").forEach(row => {
       row.addEventListener("click", function() {
-        window.location.href = this.dataset.href;
+        console.log("Redirecting to:", this.dataset.href); // Debugging
+        Turbo.visit(this.dataset.href, { action: "replace" }); // Use Turbo to navigate
       });
     });
   });

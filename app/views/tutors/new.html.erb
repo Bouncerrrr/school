@@ -1,51 +1,55 @@
-<%= render 'layouts/navbar' %> <!-- Include Navbar -->
+<%= render 'layouts/navbar' %>
 
-<div class="container basic mt-3">
-  <h1>New Tutor</h1>
+<div class="container basic mt-3 text-start">
+  <h1 class="text-center">Create new tutor profile</h1>
 
   <%= form_with(model: @tutor, local: true) do |form| %>
     
     <div class="mb-3">
-      <%= form.label :name, class: "form-label" %>
-      <%= form.text_field :name, class: "form-control #{'is-invalid' if @tutor.errors[:name].any?}" %>
-      <% if @tutor.errors[:name].any? %>
-        <div class="invalid-feedback">
-          <%= @tutor.errors[:name].join(", ") %>
-        </div>
-      <% end %>
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, class: "form-control #{'is-invalid' if @tutor.errors[:name].any?}" %>
+  
+        <% if @tutor.errors[:name].any? %>
+            <div class="invalid-feedback d-block">
+                <%= @tutor.errors[:name].join(", ") %>
+            </div>
+        <% end %>
     </div>
 
     <div class="mb-3">
-      <%= form.label :surname, class: "form-label" %>
-      <%= form.text_field :surname, class: "form-control #{'is-invalid' if @tutor.errors[:surname].any?}" %>
-      <% if @tutor.errors[:surname].any? %>
-        <div class="invalid-feedback">
-          <%= @tutor.errors[:surname].join(", ") %>
-        </div>
-      <% end %>
+        <%= form.label :surname, class: "form-label" %>
+        <%= form.text_field :surname, class: "form-control #{'is-invalid' if @tutor.errors[:surname].any?}" %>
+        
+        <% if @tutor.errors[:surname].any? %>
+            <div class="invalid-feedback d-block">
+                <%= @tutor.errors[:surname].join(", ") %>
+            </div>
+        <% end %>
     </div>
 
     <div class="mb-3">
       <%= form.label :tutor_specialization, "Specialization", class: "form-label" %>
       <%= form.text_field :tutor_specialization, class: "form-control #{'is-invalid' if @tutor.errors[:tutor_specialization].any?}" %>
+      
       <% if @tutor.errors[:tutor_specialization].any? %>
-        <div class="invalid-feedback">
-          <%= @tutor.errors[:tutor_specialization].join(", ") %>
-        </div>
-      <% end %>
+            <div class="invalid-feedback d-block">
+                <%= @tutor.errors[:tutor_specialization].join(", ") %>
+            </div>
+        <% end %>
     </div>
 
     <div class="mb-3">
-      <%= form.label :hourly_price, "Hourly Price", class: "form-label" %>
-      <%= form.text_field :hourly_price, class: "form-control #{'is-invalid' if @tutor.errors[:hourly_price].any?}" %>
-      <% if @tutor.errors[:hourly_price].any? %>
-        <div class="invalid-feedback">
-          <%= @tutor.errors[:hourly_price].join(", ") %>
-        </div>
+        <%= form.label :hourly_price, "Hourly Price", class: "form-label" %>
+        <%= form.text_field :hourly_price, class: "form-control #{'is-invalid' if @tutor.errors[:hourly_price].any?}" %>
+        
+        <% if @tutor.errors[:hourly_price].any? %>
+            <div class="invalid-feedback d-block">
+                <%= @tutor.errors[:hourly_price].join(", ") %>
+            </div>
       <% end %>
     </div>
 
-    <div>
+    <div class="text-center mt-3">
       <%= form.submit "Create Tutor", class: "btn btn-success" %>
     </div>
 

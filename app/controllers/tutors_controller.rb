@@ -5,7 +5,7 @@ class TutorsController < ApplicationController
   before_action :set_specializations, only: [:index, :new, :edit]
 
   def index
-    @tutors = Tutor.all
+    @tutors
 
     if params[:specialization].present? && params[:specialization] != "All"
       @tutors = @tutors.where(tutor_specialization: params[:specialization])
@@ -62,5 +62,5 @@ class TutorsController < ApplicationController
   def set_specializations
     @specializations = Tutor.distinct.pluck(:tutor_specialization)
   end
-  
+
 end

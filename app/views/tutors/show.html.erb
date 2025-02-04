@@ -1,32 +1,47 @@
-<h1><%= @tutor.name %> <%= @tutor.surname %></h1>
-<p>Specialization: <%= @tutor.tutor_specialization %></p>
-<p>Hourly Price: $<%= @tutor.hourly_price %></p>
+<%= render 'layouts/navbar' %>
 
-<h2>Lessons</h2>
-<% if @lessons.any? %>
-  <ul>
-    <% @lessons.each do |lesson| %>
-      <li>
-        Lesson on <%= lesson.lesson_date.strftime("%B %d, %Y") %>
-        <%= link_to "Edit", edit_tutor_lesson_path(@tutor, lesson), class: "button" %>
-        <%= link_to "Delete", tutor_lesson_path(@tutor, lesson), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "button delete-button" %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No lessons scheduled.</p>
-<% end %>
+<div class="container mt-4">
+  <div class="row align-items-start">
+    <div class="col-md-5 text-start" >
+        <h2>Tutor profile</h2>
+        <div class="text-start basic">
+            <h1><%= @tutor.name %> <%= @tutor.surname %></h2>
+            <p style="font-size: 20px"><strong>Specialization:</strong> <%= @tutor.tutor_specialization %></p>
+            <p style="font-size: 20px"><strong>Hourly Price:</strong> $<%= @tutor.hourly_price %></p>
 
-<!-- Add Lesson Button (Only show if @tutor is persisted in the database) -->
-<% if @tutor.persisted? %>
-  <%= link_to "Add Lesson", new_tutor_lesson_path(@tutor), class: "button" %>
-<% end %>
+            <div class="mt-3 text-end">
+                <%= link_to 'Edit Tutor', edit_tutor_path(@tutor), class: "btn btn-warning me-2" %>
+                <%= link_to "Delete", tutor_path(@tutor), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+            </div>
+        </div>
+        
 
-<!-- Edit Button -->
-<%= link_to 'Edit Tutor', edit_tutor_path(@tutor), class: "button" %>
+    </div>
 
-<!-- Delete Button -->
-<%= link_to "Delete", tutor_path, data: {turbo_method: 'delete', turbo_confirm: "Are you sure?" } %>
-<!-- Back Button -->
-<%= link_to 'Back to Tutors List', tutors_path, class: "button" %>
 
+    <div class="col-md-7 text-start">
+      <h2>Lessons</h2>
+      <% if @lessons.any? %>
+        <ul class="list-group">
+          <% @lessons.each do |lesson| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Lesson on <%= lesson.lesson_date.strftime("%B %d, %Y") %>
+              <div>
+                <%= link_to "Edit", edit_tutor_lesson_path(@tutor, lesson), class: "btn btn-sm btn-outline-primary me-2" %>
+                <%= link_to "Delete", tutor_lesson_path(@tutor, lesson), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class = "text-center" style="font-size: 20px">No lessons scheduled.</p>
+      <% end %>
+
+      <% if @tutor.persisted? %>
+        <div class="mt-3 text-center">
+          <%= link_to "Add Lesson", new_tutor_lesson_path(@tutor), class: "btn btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
