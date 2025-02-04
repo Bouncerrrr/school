@@ -17,6 +17,7 @@ module TutorsFilterable
                      .group(:id)
                      .order('COUNT(lessons.id) DESC')
       apply_filters
+      @tutors = @tutors.page(params[:page]).per(5)
     end
   
     def apply_filters

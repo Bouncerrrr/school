@@ -23,53 +23,68 @@ body {
 
 .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
-   background-color: rgb(162, 158, 155); // Choose your own color here
+    background-color: rgb(162, 158, 155); // Choose your own color here
  }
 
- .table-striped>tbody>tr:nth-child(even)>td, 
- .table-striped>tbody>tr:nth-child(even)>th {
+.table-striped>tbody>tr:nth-child(even)>td, 
+.table-striped>tbody>tr:nth-child(even)>th {
     background-color: rgb(105, 101, 97); // Choose your own color here
-  }
+}
 
-  .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: rgb(94, 137, 74);;
-  }
+}
 
-  .custom-thread {
+.custom-thread {
     background-color: #362d24; /* Change to your preferred color */
     color: white;
     border-radius: 10px 10px 0 0; /* Rounded top corners */
-  }
+}
 
-  .clickable-row {
+.clickable-row {
     cursor: pointer;
-  }
+}
   
-  .clickable-row:hover {
+.clickable-row:hover {
     background-color: rgba(74, 144, 226, 0.1); /* Light blue hover effect */
-  }
+}
 
-  .custom-navbar {
+.custom-navbar {
     background-color: #2c2622 !important;
     padding: 15px;
   
     .navbar-brand {
-      font-weight: bold;
+        font-weight: bold;
     }
-  }
+}
   
-  .search-form {
+.search-form {
     .form-control, .form-select {
-      border-radius: 5px;
+        border-radius: 5px;
     }
-  
+    
     .btn-success {
-      color: #000;
-      background-color: #38a169 !important;
-      border-color: #2f855a !important;
-  
-      &:hover {
-        background-color: #2f855a !important;
-      }
+        color: #000;
+        background-color: #38a169 !important;
+        border-color: #2f855a !important;
+    
+        &:hover {
+            background-color: #2f855a !important;
+        }
     }
-  }
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #26221f;
+    border-color: #262221;
+    color: white;
+}
+
+.pagination .page-link {
+    color: #201e1d;
+}
+
+.pagination .page-link:hover {
+    background-color: #514940;
+    color: white;
+}
