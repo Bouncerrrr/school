@@ -8,12 +8,12 @@ class LessonsController < ApplicationController
 
   def create
     @lesson = @tutor.lessons.build(lesson_params)
-
+  
     if @lesson.lesson_date.present? && @lesson.lesson_date < Date.today
-      flash[:alert] = "Lessons cannot be scheduled in the past."
+      @lesson.errors.add(:lesson_date, "cannot be in the past.")
       render :new, status: :unprocessable_entity
     elsif @tutor.lessons.exists?(lesson_date: @lesson.lesson_date)
-      flash[:alert] = "A lesson already exists for this tutor on this date."
+      @lesson.errors.add(:lesson_date, "A lesson already exists on this date.")
       render :new, status: :unprocessable_entity
     elsif @lesson.save
       redirect_to tutor_path(@tutor), notice: "Lesson successfully created."
@@ -27,7 +27,6 @@ class LessonsController < ApplicationController
 
   def update
     if lesson_params[:lesson_date].present? && lesson_params[:lesson_date].to_date < Date.today
-      flash[:alert] = "Lessons cannot be rescheduled to a past date."
       render :edit, status: :unprocessable_entity
     elsif @tutor.lessons.where(lesson_date: lesson_params[:lesson_date]).where.not(id: @lesson.id).exists?
       flash[:alert] = "A lesson already exists for this tutor on this date."

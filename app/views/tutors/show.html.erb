@@ -33,7 +33,7 @@
 
               <div>
                 <% unless past_lesson %>
-                  <%= link_to "Edit", edit_tutor_lesson_path(@tutor, lesson), class: "btn btn-sm btn-outline-primary me-2" %>
+                  <%= link_to "Reschedule", edit_tutor_lesson_path(@tutor, lesson), class: "btn btn-sm btn-outline-primary me-2" %>
                 <% end %>
 
                 <%= form_with url: tutor_lesson_path(@tutor, lesson), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "d-inline" do %>
@@ -43,13 +43,16 @@
             </li>
           <% end %>
         </ul>
+        <div class="mt-3">
+          <%= paginate @lessons %>
+        </div>
       <% else %>
         <p class="text-center" style="font-size: 20px">No lessons scheduled.</p>
       <% end %>
 
       <% if @tutor.persisted? %>
         <div class="mt-3 text-center">
-          <%= link_to "Add Lesson", new_tutor_lesson_path(@tutor), class: "btn btn-success" %>
+          <%= link_to "Schedule Lesson", new_tutor_lesson_path(@tutor), class: "btn btn-success" %>
         </div>
       <% end %>
     </div>

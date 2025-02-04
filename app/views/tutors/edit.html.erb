@@ -50,8 +50,9 @@
       <% end %>
     </div>
 
-    <div class="text-center mt-3">
-      <%= form.submit "Update Tutor", class: "btn btn-success me-2" %>
+    <div class="d-flex justify-content-center gap-3 mt-3">
+        <%= link_to 'Back to Tutor', tutor_path(@tutor), class: "btn btn-warning" %>
+        <%= form.submit "Update Tutor", class: "btn btn-success me-2" %>
     </div>
 
   <% end %>

@@ -61,7 +61,7 @@ class TutorsController < ApplicationController
 
   def load_tutor_with_lessons
     @tutor = Tutor.find(params[:id])
-    @lessons = @tutor.lessons.order(lesson_date: :asc)
+    @lessons = @tutor.lessons.order(lesson_date: :desc).page(params[:page]).per(10)
   end
 
   def set_specializations
