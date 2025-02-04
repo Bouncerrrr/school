@@ -1,0 +1,20 @@
+<table class="table table-striped table-bordered table-hover custom-table">
+  <thead class="custom-thread">
+    <tr>
+      <th>Name</th>
+      <th>Specialization</th>
+      <th>Hourly Price</th>
+      <th>Lessons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tutors.each do |tutor| %>
+      <tr class="clickable-row" data-href="<%= tutor_path(tutor) %>">
+        <td class="text-start"><%= tutor.name %> <%= tutor.surname %></td>
+        <td class="text-center"><%= tutor.tutor_specialization %></td>
+        <td class="text-center">$<%= tutor.hourly_price %></td>
+        <td class="text-center"><%= tutor.lessons.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

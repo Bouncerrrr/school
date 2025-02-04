@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="<%= root_path %>">Tutors</a>
+
+    <!-- Navbar Toggle Button for Mobile -->
+    <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <%= form_with url: tutors_path, method: :get, local: true, class: "d-flex ms-auto search-form" do %>
+        <div class="input-group me-2">
+          <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search Name..." %>
+        </div>
+
+        <div class="me-2">
+          <%= select_tag :specialization, options_for_select(["All"] + @specializations, params[:specialization]), class: "form-select" %>
+        </div>
+
+        <div class="me-2">
+          <%= date_field_tag :date, params[:date], class: "form-control" %>
+        </div>
+
+        <div>
+          <%= submit_tag "Search", class: "btn btn-success" %>
+        </div>
+      <% end %>
+
+      <!-- Add New Tutor Button (Aligned Right) -->
+      <div class="ms-3">
+        <%= link_to 'Add a New Tutor', new_tutor_path, class: "btn btn-warning" %>
+      </div>
+    </div>
+  </div>
+</nav>

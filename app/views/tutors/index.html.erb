@@ -1,52 +1,9 @@
-<h1>All Tutors</h1>
-
-<!-- Search Form -->
-<%= form_with url: tutors_path, method: :get, local: true do %>
-  <div>
-    <%= label_tag :query, "Search by Name or Surname (Starting with):" %>
-    <%= text_field_tag :query, params[:query], placeholder: "Enter name..." %>
-  </div>
-
-  <div>
-    <%= label_tag :specialization, "Filter by Specialization:" %>
-    <%= select_tag :specialization, options_for_select(["All"] + @specializations, params[:specialization]) %>
-  </div>
-
-  <div>
-    <%= label_tag :date, "Find Tutors Available On:" %>
-    <%= date_field_tag :date, params[:date] %>
-  </div>
-
-  <div>
-    <%= submit_tag "Search" %>
-  </div>
-<% end %>
-
-<% if @tutors.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Specialization</th>
-        <th>Hourly Price</th>
-        <th>Lesson Count</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tutors.each do |tutor| %>
-        <tr>
-          <td><%= tutor.name %> <%= tutor.surname %></td>
-          <td><%= tutor.tutor_specialization %></td>
-          <td>$<%= tutor.hourly_price %></td>
-          <td><%= tutor.lessons.count %></td>
-          <td><%= link_to 'View Profile', tutor_path(tutor) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>No tutors available.</p>
-<% end %>
-
-<%= link_to 'Add a New Tutor', new_tutor_path %>
+<%= render 'search_form' %>
+<div class="container basic mt-3">
+    <h2 style ="text-align: start;">Tutors</h2>
+    <% if @tutors.any? %>
+    <%= render 'tutors_list' %>
+    <% else %>
+    <p>No tutors available.</p>
+    <% end %>
+</div>

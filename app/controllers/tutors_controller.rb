@@ -2,8 +2,15 @@ class TutorsController < ApplicationController
   include TutorsFilterable
 
   before_action :set_tutor, only: [:show, :edit, :update, :destroy]
+  before_action :set_specializations, only: [:index, :new, :edit]
 
-  def index; end
+  def index
+    @tutors = Tutor.all
+
+    if params[:specialization].present? && params[:specialization] != "All"
+      @tutors = @tutors.where(tutor_specialization: params[:specialization])
+    end
+  end
 
   def show
     load_tutor_with_lessons
@@ -51,4 +58,9 @@ class TutorsController < ApplicationController
     @tutor = Tutor.find(params[:id])
     @lessons = @tutor.lessons.order(lesson_date: :asc)
   end
+
+  def set_specializations
+    @specializations = Tutor.distinct.pluck(:tutor_specialization)
+  end
+  
 end
