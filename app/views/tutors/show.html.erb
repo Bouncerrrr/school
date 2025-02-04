@@ -2,46 +2,49 @@
 
 <div class="container mt-4">
   <div class="row align-items-start">
-    <div class="col-md-5 text-start" >
-        <h2>Tutor profile</h2>
-        <div class="text-start basic">
-            <h1><%= @tutor.name %> <%= @tutor.surname %></h2>
-            <p style="font-size: 20px"><strong>Specialization:</strong> <%= @tutor.tutor_specialization %></p>
-            <p style="font-size: 20px"><strong>Hourly Price:</strong> $<%= @tutor.hourly_price %></p>
+    <div class="col-md-5 text-start">
+      <h2>Tutor Profile</h2>
+      <div class="text-start basic">
+        <h1><%= @tutor.name %> <%= @tutor.surname %></h1>
+        <p style="font-size: 20px"><strong>Specialization:</strong> <%= @tutor.tutor_specialization %></p>
+        <p style="font-size: 20px"><strong>Hourly Price:</strong> $<%= @tutor.hourly_price %></p>
 
-            <div class="mt-3 text-end">
-                <%= link_to 'Edit Tutor', edit_tutor_path(@tutor), class: "btn btn-warning me-2" %>
+        <div class="mt-3 text-end">
+          <%= link_to 'Edit Tutor', edit_tutor_path(@tutor), class: "btn btn-warning me-2" %>
 
-                <span style="display: inline-block;">
-                <%= button_to "Delete", tutor_path(@tutor), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
-                </span>
-            </div>
-
+          <span style="display: inline-block;">
+            <%= button_to "Delete", tutor_path(@tutor), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+          </span>
         </div>
-        
-
+      </div>
     </div>
-
 
     <div class="col-md-7 text-start">
       <h2>Lessons</h2>
       <% if @lessons.any? %>
         <ul class="list-group">
           <% @lessons.each do |lesson| %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <% past_lesson = lesson.lesson_date < Date.today %> 
+
+            <li class="list-group-item d-flex justify-content-between align-items-center 
+                <%= 'text-muted text-decoration-line-through' if past_lesson %>">
+              
               Lesson on <%= lesson.lesson_date.strftime("%B %d, %Y") %>
+
               <div>
-                <%= link_to "Edit", edit_tutor_lesson_path(@tutor, lesson), class: "btn btn-sm btn-outline-primary me-2" %>
-                <%= form_with url: tutor_lesson_path(@tutor, lesson), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "d-inline" do %>
-                    <%= submit_tag "Delete", class: "btn btn-sm btn-outline-danger" %>
+                <% unless past_lesson %>
+                  <%= link_to "Edit", edit_tutor_lesson_path(@tutor, lesson), class: "btn btn-sm btn-outline-primary me-2" %>
                 <% end %>
 
+                <%= form_with url: tutor_lesson_path(@tutor, lesson), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "d-inline" do %>
+                  <%= submit_tag "Delete", class: "btn btn-sm btn-outline-danger" %>
+                <% end %>
               </div>
             </li>
           <% end %>
         </ul>
       <% else %>
-        <p class = "text-center" style="font-size: 20px">No lessons scheduled.</p>
+        <p class="text-center" style="font-size: 20px">No lessons scheduled.</p>
       <% end %>
 
       <% if @tutor.persisted? %>

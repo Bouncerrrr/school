@@ -9,7 +9,10 @@ class LessonsController < ApplicationController
   def create
     @lesson = @tutor.lessons.build(lesson_params)
 
-    if @tutor.lessons.exists?(lesson_date: @lesson.lesson_date)
+    if @lesson.lesson_date.present? && @lesson.lesson_date < Date.today
+      flash[:alert] = "Lessons cannot be scheduled in the past."
+      render :new, status: :unprocessable_entity
+    elsif @tutor.lessons.exists?(lesson_date: @lesson.lesson_date)
       flash[:alert] = "A lesson already exists for this tutor on this date."
       render :new, status: :unprocessable_entity
     elsif @lesson.save
@@ -23,7 +26,10 @@ class LessonsController < ApplicationController
   end
 
   def update
-    if @tutor.lessons.where(lesson_date: lesson_params[:lesson_date]).where.not(id: @lesson.id).exists?
+    if lesson_params[:lesson_date].present? && lesson_params[:lesson_date].to_date < Date.today
+      flash[:alert] = "Lessons cannot be rescheduled to a past date."
+      render :edit, status: :unprocessable_entity
+    elsif @tutor.lessons.where(lesson_date: lesson_params[:lesson_date]).where.not(id: @lesson.id).exists?
       flash[:alert] = "A lesson already exists for this tutor on this date."
       render :edit, status: :unprocessable_entity
     elsif @lesson.update(lesson_params)
@@ -50,6 +56,5 @@ class LessonsController < ApplicationController
 
   def lesson_params
     params.require(:lesson).permit(:lesson_date)
-  end
-  
+  end  
 end
