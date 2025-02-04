@@ -40,9 +40,14 @@ class TutorsController < ApplicationController
   end
 
   def destroy
-    @tutor.destroy
-    redirect_to tutors_path, notice: 'Tutor was successfully deleted.'
+    if @tutor.destroy
+      flash[:notice] = 'Tutor was successfully deleted.'
+    else
+      flash[:alert] = 'Tutor could not be deleted.'
+    end
+    redirect_to tutors_path
   end
+  
 
   private
 
