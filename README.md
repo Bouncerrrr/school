@@ -42,13 +42,19 @@ In the **index page** of the application the user can:
 
 * Application uses **Bundler version 2.5.23** for gems and **Yarn 1.22.22** for running Javascript dependencies
 
-* Database uses **Postgresql**.
+* Database uses **Postgresql 14**.
+
+* **Docker version 27.1.1**
 
 ## Setup
 
 * To make sure all gems are working run  ``bundle install``
 
 * To make sure Javascript dependencies are working run ``yarn install``
+
+* To create and run a new container from an image run ``docker compose up``
+
+* To create database run ``rails db:create`` and ``rails db:migrate``
 
 * To access application in a browser ``run rails s``
 
