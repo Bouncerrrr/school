@@ -39,12 +39,15 @@ module TutorsFilterable
     end
   
     def filter_tutors_by_date
-      return unless params[:date].present?
-  
-      selected_date = Date.parse(params[:date]) rescue nil
-      return unless selected_date
-  
-      @tutors = @tutors.where.not(id: Lesson.where(lesson_date: selected_date).select(:tutor_id))
+        return unless params[:date].present?
+      
+        selected_date = Date.parse(params[:date]) rescue nil
+        return unless selected_date
+      
+        @tutors = @tutors.left_joins(:lessons)
+                         .group(:id)
+                         .having('SUM(CASE WHEN lessons.lesson_date = ? THEN 1 ELSE 0 END) = 0', selected_date)
     end
+      
   end
   
