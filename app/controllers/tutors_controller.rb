@@ -1,5 +1,5 @@
 class TutorsController < ApplicationController
-  include TutorsFilterable
+  include Tutors::TutorsFilterable
 
   before_action :set_tutor, only: [:show, :edit, :update, :destroy]
   before_action :set_specializations, only: [:index, :new, :edit]
